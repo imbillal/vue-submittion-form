@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <div class="row justify-content-center">
-         <div class="col-6">
+         <div class="col-12 col-lg-6">
             <div class="form-group">
                <button class="btn-block btn btn-primary mx-auto" @click="addUser" v-if="!showForm">Add User</button>
             </div>
@@ -37,7 +37,7 @@
                   <div v-if="field.type === 'multi-select'">
                      <div class="form-group ocupation">
                         <label :for="field.name">{{field.label}}</label>
-                        <select v-model="newUser.ocupation" class="form-control" name="field.name" :id="field.name":class="{ 'is-invalid':  $v.newUser.ocupation.$error }">
+                        <select v-model="newUser.ocupation" class="form-control" multiple name="field.name" :id="field.name":class="{ 'is-invalid':  $v.newUser.ocupation.$error }">
                            <option v-for="option in getOcuOptions" :value="option">{{option}}</option>
                         </select>
                         <div v-if=" !$v.newUser.ocupation.required" class="invalid-msg">{{ field.validation_message }}</div>
@@ -81,9 +81,10 @@
          </div>
       </div>
       <div class="row justify-content-center">
-         <div class="col-8">
+         <div class="col-12 col-lg-8">
             
-               <!-- User Data Table -->
+            <!-- User Data Table -->
+            <div class="table-responsive">
                <table class="table table-bordered" v-if="!showForm">
                   <thead>
                      <tr>
@@ -94,12 +95,13 @@
                      <tr v-for="data in getData">
                         <td>{{ data.name }}</td>
                         <td>{{ data.email }}</td>
-                        <td>{{ data.ocupation }}</td>
+                        <td>{{ data.ocupation.toString() }}</td>
                         <td>{{ data.status }}</td>
                         <td>{{ data.internal_status }}</td>
                      </tr>
                   </tbody>
                </table>
+            </div>
          </div>
       </div>
    </div>
@@ -149,6 +151,12 @@ export default {
          var tempHeader = this.fieldsData.filter( field => field.type !=='info_html')
          var header = tempHeader
          return header;
+      },
+      modGetData(){
+         this.getData.ocupation.filter( function(user) {
+            user
+         })
+         return this.getData
       }
    },
    methods:{
@@ -195,7 +203,7 @@ form{
    box-shadow: 0 0 5px rgba(0,0,0,.2);
 }
 button{
-  width: 400px;
+  max-width: 400px;
 }
 .invalid-msg{
    color: red;
