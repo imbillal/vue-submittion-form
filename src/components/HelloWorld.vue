@@ -78,7 +78,9 @@
                </div>
             </form>
             <p class="form-success text-center" v-show="successMsg">Form Submited Successfully</p>
+            
 
+            <!-- User Data Table -->
             <table class="table table-bordered" v-if="!showForm">
                <thead>
                   <tr>
@@ -102,11 +104,12 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import fieldsData from '../store/fieldsData.json'
 export default {
   name: 'HelloWorld',
    data () {
       return {
-         fieldsData: [],
+         fieldsData: fieldsData.fields,
          submited: false,
          successMsg: false,
          newUser: {},
@@ -143,11 +146,6 @@ export default {
          var tempHeader = this.fieldsData.filter( field => field.type !=='info_html')
          var header = tempHeader
          return header;
-      },
-      usernameError(){
-         var errors = [];
-         if(!this.$v.name.$dirty) return errors;
-         !this.$v.name.required && errors.push('suer name required')
       }
    },
    methods:{
@@ -173,16 +171,16 @@ export default {
             this.showForm = false;
             this.successMsg = false
             this.newUser = {}
-         }, 2000);
+         }, 1500);
       }
    },
-   mounted(){
-      this.$http.get('http://localhost:3000/fields')
-      .then((response)=>{
-         this.fieldsData = response.body
-      })
-      .catch()
-  }
+  //  mounted(){
+  //     this.$http.get('http://localhost:3000/fields')
+  //     .then((response)=>{
+  //        this.fieldsData = response.body
+  //     })
+  //     .catch()
+  // }
 }
 </script>
 
