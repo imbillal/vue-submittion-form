@@ -1,13 +1,13 @@
 <template>
   <div class="container">
       <div class="row justify-content-center">
-         <div class="col-8">
+         <div class="col-6">
             <div class="form-group">
                <button class="btn-block btn btn-primary mx-auto" @click="addUser" v-if="!showForm">Add User</button>
             </div>
             <form @submit.prevent="submitForm" v-if="showForm">
 
-               <div class="input-group" v-for="field in fieldsData">
+               <div class="" v-for="field in fieldsData">
 
                   <div v-if="field.type === 'info_html'" v-html="field.content"></div>
 
@@ -78,25 +78,28 @@
                </div>
             </form>
             <p class="form-success text-center" v-show="successMsg">Form Submited Successfully</p>
+         </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-8">
             
-
-            <!-- User Data Table -->
-            <table class="table table-bordered" v-if="!showForm">
-               <thead>
-                  <tr>
-                     <th v-for="header in getTableHeader">{{header.label}}</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr v-for="data in getData">
-                     <td>{{ data.name }}</td>
-                     <td>{{ data.email }}</td>
-                     <td>{{ data.ocupation }}</td>
-                     <td>{{ data.status }}</td>
-                     <td>{{ data.internal_status }}</td>
-                  </tr>
-               </tbody>
-            </table>
+               <!-- User Data Table -->
+               <table class="table table-bordered" v-if="!showForm">
+                  <thead>
+                     <tr>
+                        <th v-for="header in getTableHeader">{{header.label}}</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr v-for="data in getData">
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.email }}</td>
+                        <td>{{ data.ocupation }}</td>
+                        <td>{{ data.status }}</td>
+                        <td>{{ data.internal_status }}</td>
+                     </tr>
+                  </tbody>
+               </table>
          </div>
       </div>
    </div>
