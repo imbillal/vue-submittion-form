@@ -18,7 +18,7 @@
                         <label :for="field.name">{{field.label}}</label>
                         <input v-model="newUser.name" class="form-control" :type="field.type" :id="field.name" :placeholder="field.placeholder" :require="field.required" :class="{ 'is-invalid':  $v.newUser.name.$error }">
 
-                        <div v-if=" !$v.newUser.name.required" class="invalid-feedback">First Name is required</div>
+                        <div v-if=" !$v.newUser.name.required" class="invalid-msg">{{ field.validation_message }}</div>
                      </div>
                   </div>
 
@@ -28,7 +28,7 @@
                      <div class="form-group email">
                         <label :for="field.name">{{field.label}}</label>
                         <input v-model="newUser.email" class="form-control" :type="field.type" :id="field.name" :placeholder="field.placeholder" :require="field.required" :class="{ 'is-invalid':  $v.newUser.email.$error }">
-                        <div v-if=" !$v.newUser.email.required" class="invalid-feedback">First Name is required</div>
+                        <div v-if=" !$v.newUser.email.required" class="invalid-msg">{{ field.validation_message }}</div>
                      </div>
                   </div>
 
@@ -40,7 +40,7 @@
                         <select v-model="newUser.ocupation" class="form-control" name="field.name" :id="field.name":class="{ 'is-invalid':  $v.newUser.ocupation.$error }">
                            <option v-for="option in getOcuOptions" :value="option">{{option}}</option>
                         </select>
-                        <div v-if=" !$v.newUser.ocupation.required" class="invalid-feedback">First Name is required</div>
+                        <div v-if=" !$v.newUser.ocupation.required" class="invalid-msg">{{ field.validation_message }}</div>
                      </div>
                   </div>
 
@@ -50,12 +50,12 @@
                      <div class="form-group status">
                         <label :for="field.name">{{field.label}}</label> <br>
 
-                        <div class="form-check-inline" v-for="option in getStatusOptions">
+                        <div class="form-check-inline" v-for="option in getStatusOptions" :class="{ 'is-invalid':  $v.newUser.status.$error }">
                            <label class="form-check-label" :for="option"> {{option}}
-                              <input v-model="newUser.status" :value="option"  class="form-check-input" :type="field.type" :name="field.name" :id="option" :class="{ 'is-invalid':  $v.newUser.status.$error }">
+                              <input v-model="newUser.status" :value="option"  class="form-check-input" :type="field.type" :name="field.name" :id="option" >
                            </label>
-                           <div v-if=" !$v.newUser.ocupation.required" class="invalid-feedback">First Name is required</div>
                         </div>
+                        <div v-if=" !$v.newUser.status.required" class="invalid-msg">{{ field.validation_message }}</div>
                      </div>
                   </div>
 
@@ -67,7 +67,7 @@
                         <select v-model="newUser.internal_status" class="form-control"  name="field.name" :id="field.name" :class="{ 'is-invalid':  $v.newUser.internal_status.$error }">
                            <option v-for="option in getInternalOptions" :value="option">{{option}}</option>
                         </select>
-                        <div v-if=" !$v.newUser.internal_status.required" class="invalid-feedback">First Name is required</div>
+                        <div v-if=" !$v.newUser.internal_status.required" class="invalid-msg">{{ field.validation_message }}</div>
                      </div>
                   </div>
                </div>
@@ -196,5 +196,12 @@ form{
 button{
   width: 400px;
 }
-
+.invalid-msg{
+   color: red;
+   font-size: 12px;
+   display: none;
+}
+.is-invalid ~ .invalid-msg{
+   display: block;
+}
 </style>
